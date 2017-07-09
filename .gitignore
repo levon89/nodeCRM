@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+logs
+*.log
+npm-debug.log*
+node_modules/
+.npm
+

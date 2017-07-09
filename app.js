@@ -82,7 +82,7 @@ app.post('/form', function(req, res){
             //Generate token
             var newToken =jwt.sign({
                 username: tokgen
-            }, 'Itwouldbedevastatingifanyonelearnedthatyourcharacteristhesiblingofanevilnematode.' , { expiresIn: '4h' });
+            }, 'Itwouldbedevastatingifanyonelearnedthatyourcharacteristhesiblingofanevilnematode.' , { expiresIn: '1h' });
             //send json to client to check if user logged
             res.send(JSON.stringify({
                 'username':req.body.login,
