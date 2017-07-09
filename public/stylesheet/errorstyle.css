@@ -1,0 +1,25 @@
+@font-face {
+    font-family: myfont;
+    src: url(../include/font.ttf);
+}
+body {
+    background: url(../images/scared.gif) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+h6{
+    font-family: myfont;
+    color: #356AA0;
+    font-size: 5em;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}

@@ -1,0 +1,35 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='/stylesheet/bootstrap.min.css')
+        script(src='/angular/angular.js')
+        script(src='/javascript/jquery.min.js')
+        script(src='/javascript/bootstrap.min.js')
+        link(rel='stylesheet', href='/stylesheet/style.css')
+        link(rel='stylesheet', href='/include/font-awesome-4.7.0/css/font-awesome.min.css')
+        script(src='/javascript/customjs.js')
+        script(src='/javascript/angularscript.js')
+        //if lt IE 9
+          script(src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js')
+          script(src='https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js')
+        title E-shop
+    body
+        #login.text-center
+            form(name='loginform',ng-app='appValidate',ng-controller='validateCtrl')
+                .form-group
+                    i.fa.fa-user-o.fa-2x.fa-fw(aria-hidden='true')
+                    input.form-control(type='text', name='uName',ng-pattern='numOnlyRegex', data-ng-model='uName', placeholder='login', required='')
+                    div(ng-show='loginform.uName.$dirty && loginform.uName.$invalid')
+                    div.warncolor(ng-show='loginform.uName.$error.pattern') Only alphabets are allowed
+                    div.warncolor(ng-show='loginform.$submitted || loginform.uName.$touched')
+                        div(ng-show='loginform.uName.$error.required') Username is required.
+                .form-group
+                    i.fa.fa-unlock.fa-2x.fa-fw(aria-hidden='true')
+                    input.form-control(type='text',name='uPass' ,data-ng-model='uPass',placeholder='password', required='')
+                    div(ng-show='loginform.uPass.$dirty && loginform.uPass.$invalid')
+                    div(ng-show='loginform.$submitted || loginform.uPass.$touched')
+                        div.warncolor(ng-show='loginform.uPass.$error.required') Password is required.
+                button.btn.btn-default(type='submit', ng-disabled='loginform.uName.$dirty && loginform.uName.$invalid || loginform.uPass.$dirty && loginform.uPass.$invalid',ng-click='loginsend()')
+                    | Login
