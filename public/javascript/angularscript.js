@@ -26,8 +26,18 @@ app.controller('validateCtrl', function($scope, $http) {
                 if (data.data.Authorization === "auth") {
                     //add token info to client pc
                     window.localStorage.setItem("connect",data.data.token);
-                    window.location = data.data.redirect;
-                    console.log(data)
+                    window.location.replace(data.data.redirect);
+                    //AJax call to get db
+                    $http({
+                        method: 'GET',
+                        url: data.data.redirect + '.json',
+                    }).then(function successCallback(response) {
+                       console.log(response  )
+                    }, function errorCallback(response) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+
                 }
             };
         }, function errorCallback(data) {
@@ -69,6 +79,7 @@ navi.controller('navigateControl' , function ($scope, $http) {
        });
    }
 });
+
 
 /*
  //After redirect make ajax call to main.json , which was stored values in server from database get
