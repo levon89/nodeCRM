@@ -11,6 +11,7 @@ app.controller('validateCtrl', function($scope, $http) {
                 'password': $scope.uPass
             }
         }).then(function successCallback(data) {
+            console.log(window.location)
             //If CAllback has wrongPassword or wrongUsername parametrs then make other function
             if(data.data.wrongPassword || data.data.wrongUsername){
                 //If one parametr has noAuth value then redirect to 404 page
@@ -26,14 +27,21 @@ app.controller('validateCtrl', function($scope, $http) {
                     //add token info to client pc
                     window.localStorage.setItem("connect",data.data.token);
                     window.location = data.data.redirect;
+                    console.log(data)
                 }
-            }
+            };
         }, function errorCallback(data) {
             //Ajax call problems alert
             alert('Something wrong with ajax')
         });
     };
 });
+
+getDb.controller('getdbitems' , ["$scope", function($scope) {
+    $scope.pageLoad = function() {
+        alert(1);
+    }
+}]);
 
 //Navbar logic
 navi.controller('navigateControl' , function ($scope, $http) {
@@ -62,18 +70,19 @@ navi.controller('navigateControl' , function ($scope, $http) {
    }
 });
 
-//get db after user load controller
-getDb.controller('getdbitems' , function ($scope, $http) {
-    $http({
-        method: 'GET',
-        url: '/main',
-        data: {
-            'mama': 'he'
-        }
-    }).then(function successCallback(response) {
-        console.log(response)
-    }, function errorCallback(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-    });
-});
+/*
+ //After redirect make ajax call to main.json , which was stored values in server from database get
+ $http({
+ method: 'GET',
+ url: '/main.json',
+ }).then(function successCallback(response) {
+
+ //After callback take values and put in html
+ getDb.controller('getdbitems', function ($scope) {
+ console.log(response)
+ });
+ }, function errorCallback(response) {
+ // called asynchronously if an error occurs
+ // or server returns response with an error status.
+ });
+*/

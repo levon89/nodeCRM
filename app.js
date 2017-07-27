@@ -1,6 +1,8 @@
 //Express js required files
 const express = require('express');
 const app = express();
+//multer multiple request to same object
+var multer  = require('multer');
 //GIve public  folder as stylesheet and other equipment serving folder after domain
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
@@ -21,6 +23,8 @@ const tokgen = new TokenGenerator();
 var jwt = require('jsonwebtoken');
 //Database item module
 var getDbItem = require('./models/dbitem');
+var http = require('http');
+
 
 /*
 //find all stored items and send to client
@@ -38,11 +42,23 @@ getDbItem.find( {} , function(err, getDbitem){
 
 
 
-
 //Middleware to route to user main page when login check will be true
 var userLogedmainPage = express.Router()
-    .get('/main', function(req, res) {
+    .get('/main', function(req, res ,next) {
         res.render('loginedpage');
+    });
+
+
+//Middleware to get json format all  main database
+var getMainDatabase = express.Router()
+    .get('/main.json', function(req,res,next) {
+        getDbItem.find( {} , function(err, getDbitem){
+            if(err ||  !getDbitem){
+                console.log(err);
+            } else{
+                res.json({getDbitem});
+            }
+        });
     });
 
 
@@ -94,7 +110,7 @@ app.post('/form', function(req, res){
                 token:newToken
             }));
             //middle to main  page
-            app.use(userLogedmainPage);
+            app.use(userLogedmainPage,getMainDatabase);
             //error page redirect in every slash
             app.use(function (req, res, next) {
                 res.status(404);
