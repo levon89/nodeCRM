@@ -26,26 +26,11 @@ var getDbItem = require('./models/dbitem');
 var http = require('http');
 
 
-/*
-//find all stored items and send to client
-getDbItem.find( {} , function(err, getDbitem){
-    if(err ||  !getDbitem){
-        console.log(err);
-    } else{
-        res.send(JSON.stringify({
-            //this add server and send to client
-            'isonline': 'yes'
-        }));
-    }
-});
-*/
-
-
 
 //Middleware to route to user main page when login check will be true
 var userLogedmainPage = express.Router()
     .get('/main', function(req, res ,next) {
-        res.render('loginedpage');
+        res.render('index');
     });
 
 
@@ -54,9 +39,9 @@ var getMainDatabase = express.Router()
     .get('/main.json', function(req,res,next) {
         getDbItem.find( {} , function(err, getDbitem){
             if(err ||  !getDbitem){
-                console.log(err);
-            } else{
-                res.json({getDbitem});
+               res.json(err);
+            } else {
+                res.json(JSON.stringify(getDbitem));
             }
         });
     });
@@ -66,9 +51,7 @@ var getMainDatabase = express.Router()
 
 //Open login first page
 app.get('/login',function (req, res) {
-    res.render('index');
-    //Turn of powered by header information(for secure)
-    app.disable('x-powered-by');
+    res.render('login');
 });
 
 
@@ -76,45 +59,42 @@ app.get('/login',function (req, res) {
 app.post('/form', function(req, res){
 
     //Define username and password error to prompt user about wrong userrname and password
-    var getUsername = req.body.login ;
-    var getPassword = req.body.password;
+    var username = req.body.login;
+    var password = req.body.password;
 
     //debugging output for the terminal
-    console.log('you posted: Login: ' + getUsername + ', Password: ' + getPassword);
+    console.log('you posted: Login: ' + username + ', Password: ' + password);
 
     //take mongoose exported module and use to check login and password
-    users.findOne({ 'username': req.body.login , 'password':req.body.password},function (err, users) {
+    users.findOne({ 'username': username , 'password': password}, function (err, users) {
         if (err || !users) {
             //send json to client to check if he logged
-           res.send(JSON.stringify({
-               'wrongUsername': req.body.login,
-               'wrongPassword':req.body.password,
-               //check in callback if user was Authicanted
-               'Authorization': 'noAuth',
-               //send redirect to client side
-               redirect: '/'
-           }));
+           res.json({
+               success: false,
+               message: 'Wrong username and/or password'
+           });
         } else {
             //Generate token
-            var newToken =jwt.sign({
+            var newToken = jwt.sign({
                 username: tokgen
-            }, 'Itwouldbedevastatingifanyonelearnedthatyourcharacteristhesiblingofanevilnematode.' , { expiresIn: '1h' });
+            }, 'Itwouldbedevastatingifanyonelearnedthatyourcharacteristhesiblingofanevilnematode.', {
+                    expiresIn: '1h'
+                }
+            );
+
             //send json to client to check if user logged
-            res.send(JSON.stringify({
-                'username':req.body.login,
-                'pass':req.body.password,
-                //check in callback if user was Authicanted
-                'Authorization': 'auth',
-                //send redirect to client side
-                redirect: '/main',
-                token:newToken
-            }));
+            res.json({
+                success: true,
+                data: {
+                    token: newToken
+                }
+            });
             //middle to main  page
-            app.use(userLogedmainPage,getMainDatabase);
+            app.use(userLogedmainPage, getMainDatabase);
             //error page redirect in every slash
             app.use(function (req, res, next) {
                 res.status(404);
-                var err =res.render('errorpage');
+                var err = res.render('404');
                 next(err);
             });
         }
@@ -133,15 +113,15 @@ app.post('/navbaroperation', function(req,res){
           }));
       }else{
           //if client send wrong key value this will work
-          res.send(JSON.stringify({
+          res.json({
               'errorproblem': 'something went wrong with logout key value in server side'
-          }))
-      };
+          })
+      }
 });
 
 //Show error if username or password will be wrong
 app.get('/',function (req, res) {
-   res.render('errorpage')
+   res.render('404')
 });
 
 

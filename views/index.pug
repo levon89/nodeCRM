@@ -3,33 +3,146 @@ html(lang='en')
     head
         meta(charset='UTF-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
-        link(rel='stylesheet', href='/stylesheet/bootstrap.min.css')
         script(src='/angular/angular.js')
+        link(rel='stylesheet', href='/stylesheet/bootstrap.min.css')
+        script(src='/javascript/ui-bootstrap-tpls-2.5.0.min.js')
         script(src='/javascript/jquery.min.js')
         script(src='/javascript/bootstrap.min.js')
         link(rel='stylesheet', href='/stylesheet/style.css')
         link(rel='stylesheet', href='/include/font-awesome-4.7.0/css/font-awesome.min.css')
-        script(src='/javascript/customjs.js')
-        script(src='/javascript/angularscript.js')
+        script(src='/javascript/indexjs.js')
+        script(src='/javascript/indexangularjs.js')
         //if lt IE 9
-          script(src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js')
-          script(src='https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js')
-        title E-shop
-    body
-        #login.text-center
-            form(name='loginform',ng-app='appValidate',ng-controller='validateCtrl')
-                .form-group
-                    i.fa.fa-user-o.fa-2x.fa-fw(aria-hidden='true')
-                    input.form-control(type='text', name='uName',ng-pattern='numOnlyRegex', data-ng-model='uName', placeholder='login', required='')
-                    div(ng-show='loginform.uName.$dirty && loginform.uName.$invalid')
-                    div.warncolor(ng-show='loginform.uName.$error.pattern') Only alphabets are allowed
-                    div.warncolor(ng-show='loginform.$submitted || loginform.uName.$touched')
-                        div(ng-show='loginform.uName.$error.required') Username is required.
-                .form-group
-                    i.fa.fa-unlock.fa-2x.fa-fw(aria-hidden='true')
-                    input.form-control(type='text',name='uPass' ,data-ng-model='uPass',placeholder='password', required='')
-                    div(ng-show='loginform.uPass.$dirty && loginform.uPass.$invalid')
-                    div(ng-show='loginform.$submitted || loginform.uPass.$touched')
-                        div.warncolor(ng-show='loginform.uPass.$error.required') Password is required.
-                button.btn.btn-default(type='submit', ng-disabled='loginform.uName.$dirty && loginform.uName.$invalid || loginform.uPass.$dirty && loginform.uPass.$invalid',ng-click='loginsend()')
-                    | Login
+                 script(src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js')
+                 script(src='https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js')
+        title Warehouse
+    body(ng-app='navigationBar')
+        header.navbar.navbar-inverse.navbar-fixed-left
+            #profpicture
+                a.navbar-brand(href='#')
+                    img(src='/images/man-156584_960_720.png')
+            ul.nav.navbar-nav(ng-controller='navigateControl')
+                li
+                    a(href='#') Warehouse
+                li
+                    a(href='#') Sell
+                li
+                    a(href='#') Return
+                li
+                    a(href='#') Total
+                li
+                    a(href='#' , ng-click='logout()') Logout
+        section
+            .container-fluid
+                .row.text-center
+                    .col-sm-2
+                    .col-sm-2
+                        a.clickeffect(href='#')
+                            .itempropcont
+                                i.fa.fa-plus.fa-5x.fa-fw(aria-hidden='true')
+                    .col-sm-1
+                    .col-sm-2
+                        a.clickeffect(href='#')
+                            .itempropcont
+                                i.fa.fa-pencil.fa-5x.fa-fw(aria-hidden='true')
+                    .col-sm-1
+                    .col-sm-2
+                        a.clickeffect(href='#')
+                            .itempropcont
+                                i.fa.fa-minus.fa-fw.fa-5x(aria-hidden='true')
+                    .col-sm-2
+            .container-fluid
+                .row
+                    .col-sm-2
+                    #itemadd.col-sm-8
+                        form.form-inline(method='get', action='')
+                            .container-fluid.text-center
+                                .row
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Category')
+                                                | Category
+                                            input#Category.form-control(type='text')
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Type')
+                                                | Type
+                                            input#Type.form-control(type='text')
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Name')
+                                                | Name
+                                            input#Name.form-control(type='text')
+                            .container-fluid.text-center
+                                .row
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Company')
+                                                | Company
+                                            input#Company.form-control(type='text')
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Price')
+                                                | Price
+                                            input#Price.form-control(type='number')
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Stockprice')
+                                                | Stock price
+                                            input#Stockprice.form-control(type='number')
+                            .container-fluid.text-center
+                                .row
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Item')
+                                                | Item
+                                            input#Item.form-control(type='number')
+                                    .col-sm-4
+                                    .col-sm-4
+                            .container-fluid.text-center
+                                .row
+                                    .col-sm-4
+                                    .col-sm-4
+                                        button.btn.btn-default
+                                            | ADD
+                                    .col-sm-4
+                    .col-sm-2
+            #itemlist.container-fluid
+                .row
+                    .col-sm-2
+                    .col-sm-8
+                        .table-responsive
+                            table.table
+                                thead
+                                    tr
+                                        th
+                                            | Category
+                                        th
+                                            | Type
+                                        th
+                                            | Name
+                                        th
+                                            | Company
+                                        th
+                                            | Price
+                                        th
+                                            | Stock Price
+                                        th
+                                            | Item
+                                tbody(ng-controller='datagetcontroller',ng-init='loadData()')
+                                    tr(ng-repeat='items in itemsList')
+                                        td
+                                            | {{items.category}}
+                                        td
+                                            | {{items.type}}
+                                        td
+                                            | {{items.name}}
+                                        td
+                                            | {{items.company}}
+                                        td
+                                            | {{items.price}}
+                                        td
+                                            | {{items.stockPrice}}
+                                        td
+                                            | {{items.item}}
+                    .col-sm-2
