@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="62fd5c51-2433-4254-8dc2-53029a3ce509" name="Default" comment="client  get database from server">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/javascript/angularscript.js" afterPath="$PROJECT_DIR$/public/javascript/loginforangular.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/javascript/customjs.js" afterPath="$PROJECT_DIR$/public/javascript/login.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/views/errorpage.pug" afterPath="$PROJECT_DIR$/views/404.pug" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/views/index.pug" afterPath="$PROJECT_DIR$/views/login.pug" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/views/loginedpage.pug" afterPath="$PROJECT_DIR$/views/index.pug" />
+    <list default="true" id="62fd5c51-2433-4254-8dc2-53029a3ce509" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascript/indexangularjs.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascript/indexjs.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascript/ui-bootstrap-tpls-2.5.0.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheet/style.css" afterPath="$PROJECT_DIR$/public/stylesheet/style.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,40 +24,7 @@
     <favorites_list name="nodeCRM" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.pug" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/index.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="136" column="60" lean-forward="true" selection-start-line="136" selection-start-column="60" selection-end-line="136" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="indexjs.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascript/indexjs.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="indexangularjs.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascript/indexangularjs.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-              <folding>
-                <element signature="e#653#1624#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -222,6 +185,7 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="add_unversioned_files" value="true" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -399,7 +363,7 @@
       <workItem from="1501925045404" duration="13714000" />
       <workItem from="1502003193997" duration="14671000" />
       <workItem from="1502353723983" duration="24338000" />
-      <workItem from="1502446540811" duration="15003000" />
+      <workItem from="1502446540811" duration="16276000" />
     </task>
     <task id="LOCAL-00001" summary="assme">
       <created>1499633692116</created>
@@ -429,11 +393,18 @@
       <option name="project" value="LOCAL" />
       <updated>1501158599545</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Made some code optimization">
+      <created>1502465692271</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1502465692271</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="430169000" />
+    <option name="totallyTimeSpent" value="431442000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -447,7 +418,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32896462" sideWeight="0.50208336" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32975295" sideWeight="0.49791667" order="10" side_tool="false" content_ui="tabs" />
@@ -504,7 +475,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="assme" />
     <MESSAGE value="client  get database from server" />
-    <option name="LAST_COMMIT_MESSAGE" value="client  get database from server" />
+    <MESSAGE value="Made some code optimization" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made some code optimization" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -863,6 +835,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="653">
           <caret line="314" column="0" lean-forward="true" selection-start-line="314" selection-start-column="0" selection-end-line="314" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -905,16 +878,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascript/indexangularjs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#653#1624#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascript/indexjs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -923,10 +886,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascript/indexangularjs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="35" lean-forward="false" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+          <folding>
+            <element signature="e#653#1624#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/index.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="136" column="60" lean-forward="true" selection-start-line="136" selection-start-column="60" selection-end-line="136" selection-end-column="60" />
+        <state relative-caret-position="194">
+          <caret line="120" column="50" lean-forward="true" selection-start-line="120" selection-start-column="50" selection-end-line="120" selection-end-column="50" />
           <folding />
         </state>
       </provider>
