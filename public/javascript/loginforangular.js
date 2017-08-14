@@ -11,7 +11,7 @@ app.controller('validateCtrl', function($scope, $http) {
                 'password': $scope.uPass
             }
         }).then(function successCallback(response) {
-            //If CAllback has wrongPassword or wrongUsername parametrs then make other function
+            //If CAllback has wrongPassword or wrongUsername parameters then make other function
             if(!response.data.success){
                 // redirect to 404 page
 

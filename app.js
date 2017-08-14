@@ -1,8 +1,6 @@
 //Express js required files
 const express = require('express');
 const app = express();
-//multer multiple request to same object
-var multer  = require('multer');
 //GIve public  folder as stylesheet and other equipment serving folder after domain
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/node_modules'));
@@ -23,7 +21,7 @@ const tokgen = new TokenGenerator();
 var jwt = require('jsonwebtoken');
 //Database item module
 var getDbItem = require('./models/dbitem');
-var http = require('http');
+
 
 
 
