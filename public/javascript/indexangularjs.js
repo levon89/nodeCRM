@@ -29,9 +29,9 @@
     //Index table Parent controller
     app.controller('tablecontroller', function ($scope) {
         //UI BOOTSRAP number of items in every pagiantion
-        $scope.quanity = 10;
+        $scope.iteminpage = 10;
         //UI BOOTSRAP limit show number of paginate button (if noted button will be more that seven then it will add dots button)
-        $scope.maxSize = 7;
+        $scope.maxSize = 5;
         //UI BOOTSRAP total number of data , which contain pagination(in here values will be taken from above ($scope.$parent.bigTotalItems=$scope.itemsList.length;) , and number will not effect to paginate process )
         $scope.bigTotalItems = 7;
         //UI BOOTSRAP in which page must be when first load page
@@ -42,7 +42,7 @@
         function setPagingData(page) {
             $scope.bigCurrentPage = page;
             //Every time angular copy received data for slice , to make work paginate process well
-            $scope.itemsList = $scope.originalItemList.slice((page - 1) * $scope.quanity, page * $scope.quanity);
+            $scope.itemsList = $scope.originalItemList.slice((page - 1) * $scope.iteminpage, page * $scope.iteminpage);
         }
     });
     //Navbar logic
