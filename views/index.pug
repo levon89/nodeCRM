@@ -130,7 +130,7 @@ html(lang='en')
                                         th
                                             | Item
                                 tbody(ng-controller='datagetcontroller',ng-init='loadData()')
-                                     tr(ng-repeat='items in itemsList | limitTo:iteminpage',ng-click='highlight(items)',ng-class='{activerow:rowClicked==items}')
+                                     tr(ng-repeat='items in itemsList | limitTo:quanity',ng-click='highlight(items)',ng-class='{activerow:rowClicked==items}')
                                         td
                                             | {{items.category}}
                                         td
@@ -145,5 +145,5 @@ html(lang='en')
                                             | {{items.stockPrice}}
                                         td
                                             | {{items.item}}
-                            ul.pagination-sm(uib-pagination='', total-items='bigTotalItems', ng-model='bigCurrentPage', max-size='maxSize', boundary-link-numbers='true', rotate='false')
+                            ul.pagination-sm(uib-pagination='', total-items='bigTotalItems', ng-model='bigCurrentPage', max-size='maxSize', boundary-link-numbers='true', rotate='false',items-per-page = 'quanity')
                     .col-sm-2
