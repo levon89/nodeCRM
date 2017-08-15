@@ -55,7 +55,7 @@ html(lang='en')
                 .row
                     .col-sm-2
                     #itemadd.col-sm-8
-                        form.form-inline(method='get', action='')
+                        form.form-inline(method='get', action='',ng-controller='indexFormCtrl')
                             .container-fluid.text-center
                                 .row
                                     .col-sm-4
@@ -112,7 +112,7 @@ html(lang='en')
                     .col-sm-2
                     .col-sm-8
                         .table-responsive(ng-controller='tablecontroller')
-                            table.table
+                            table.table.table-hover
                                 thead
                                     tr
                                         th
@@ -130,7 +130,7 @@ html(lang='en')
                                         th
                                             | Item
                                 tbody(ng-controller='datagetcontroller',ng-init='loadData()')
-                                    tr(ng-repeat='items in itemsList')
+                                     tr(ng-repeat='items in itemsList',ng-click='highlight(items)',ng-class='{activerow:rowClicked==items}')
                                         td
                                             | {{items.category}}
                                         td

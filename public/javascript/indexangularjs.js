@@ -73,7 +73,7 @@
     });
     //Index Form Controller
     app.controller('indexFormCtrl', function ($scope,$http) {
-        
+
     });
 
 
