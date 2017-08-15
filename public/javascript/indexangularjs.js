@@ -1,4 +1,4 @@
-    //Index table json controller
+    //Index table json controller(Index table child controller)
     app.controller('datagetcontroller', function ($scope,$http) {
         //Load every time when page load
         $scope.loadData = function () {
@@ -20,8 +20,13 @@
                 // or server returns response with an error status.
             });
         };
+        //HIGLIGHT TABLE ROW WHEN CLICK  via ng-click help
+        $scope.rowClicked = null;
+        $scope.highlight = function(items) {
+            $scope.rowClicked = items;
+        };
     });
-
+    //Index table Parent controller
     app.controller('tablecontroller', function ($scope) {
         //UI BOOTSRAP number of items in every pagiantion
         $scope.quanity = 10;
@@ -40,7 +45,7 @@
             $scope.itemsList = $scope.originalItemList.slice((page - 1) * $scope.quanity, page * $scope.quanity);
         }
     });
-//Navbar logic
+    //Navbar logic
     app.controller('navigateControl' , function ($scope, $http) {
         //logout process from navbar
         $scope.logout = function () {
@@ -65,6 +70,10 @@
                 alert('something wrong is going with ajax call')
             });
         }
+    });
+    //Index Form Controller
+    app.controller('indexFormCtrl', function ($scope,$http) {
+        
     });
 
 
