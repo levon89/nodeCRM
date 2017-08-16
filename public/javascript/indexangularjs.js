@@ -1,5 +1,5 @@
     //Index table json controller(Index table child controller)
-    app.controller('datagetcontroller', function ($scope,$http) {
+    app.controller('datagetcontroller', function ($scope,$http,$rootScope) {
         //Load every time when page load
         $scope.loadData = function () {
             //Ajax call to get server received json database
@@ -15,7 +15,6 @@
                 $scope.$parent.originalItemList = recievedList;
                 //Take length of received database and use in pagination($parent make child controller available inside Parent controller)
                 $scope.$parent.bigTotalItems=$scope.itemsList.length;
-                $rootScope.name='dam'
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -25,6 +24,14 @@
         $scope.rowClicked = null;
         $scope.highlight = function(items) {
             $scope.rowClicked = items;
+            //Via  $rootscope make it bind with other controller , in form input
+            $rootScope.itemCategory=items.category;
+            $rootScope.itemType=items.type;
+            $rootScope.itemName=items.name;
+            $rootScope.itemCompany=items.company;
+            $rootScope.itemPrice=items.price;
+            $rootScope.itemStockprice=items.stockPrice;
+            $rootScope.itemNumber=items.item;
         };
     });
     //Index table Parent controller

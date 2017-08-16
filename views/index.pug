@@ -55,48 +55,48 @@ html(lang='en')
                 .row
                     .col-sm-2
                     #itemadd.col-sm-8
-                        form.form-inline(method='get', action='',ng-controller='indexFormCtrl')
+                        form.form-inline(method='get', action='', ng-controller='indexFormCtrl')
                             .container-fluid.text-center
                                 .row
                                     .col-sm-4
                                         .form-group
                                             label(for='Category')
                                                 | Category
-                                            input#Category.form-control(type='text')
+                                            input#Category.form-control(type='text', ng-model='itemCategory')
                                     .col-sm-4
                                         .form-group
                                             label(for='Type')
                                                 | Type
-                                            input#Type.form-control(type='text')
+                                            input#Type.form-control(type='text', ng-model='itemType')
                                     .col-sm-4
                                         .form-group
                                             label(for='Name')
                                                 | Name
-                                            input#Name.form-control(type='text')
+                                            input#Name.form-control(type='text', ng-model='itemName')
                             .container-fluid.text-center
                                 .row
                                     .col-sm-4
                                         .form-group
                                             label(for='Company')
                                                 | Company
-                                            input#Company.form-control(type='text')
+                                            input#Company.form-control(type='text', ng-model='itemCompany')
                                     .col-sm-4
                                         .form-group
                                             label(for='Price')
                                                 | Price
-                                            input#Price.form-control(type='number')
+                                            input#Price.form-control(type='text', ng-model='itemPrice')
                                     .col-sm-4
                                         .form-group
                                             label(for='Stockprice')
                                                 | Stock price
-                                            input#Stockprice.form-control(type='number')
+                                            input#Stockprice.form-control(type='text', ng-model='itemStockprice')
                             .container-fluid.text-center
                                 .row
                                     .col-sm-4
                                         .form-group
                                             label(for='Item')
                                                 | Item
-                                            input#Item.form-control(type='number')
+                                            input#Item.form-control(type='text', ng-model='itemNumber')
                                     .col-sm-4
                                     .col-sm-4
                             .container-fluid.text-center
@@ -129,8 +129,8 @@ html(lang='en')
                                             | Stock Price
                                         th
                                             | Item
-                                tbody(ng-controller='datagetcontroller',ng-init='loadData()')
-                                     tr(ng-repeat='items in itemsList | limitTo:quanity',ng-click='highlight(items)',ng-class='{activerow:rowClicked==items}')
+                                tbody(ng-controller='datagetcontroller', ng-init='loadData()')
+                                     tr(ng-repeat='items in itemsList | limitTo:quanity', ng-click='highlight(items)', ng-class='{activerow:rowClicked==items}')
                                         td
                                             | {{items.category}}
                                         td

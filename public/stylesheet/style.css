@@ -194,6 +194,8 @@ body{
     -moz-box-shadow: none !important;
     -o-box-shadow: none !important;
     color: #FFFFFF;
+    text-align: center;
+    font-weight: 500;
 }
 #itemlist thead{
     color: #FFFFFF;
