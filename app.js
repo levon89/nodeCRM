@@ -21,7 +21,8 @@ const tokgen = new TokenGenerator();
 var jwt = require('jsonwebtoken');
 //Database item module
 var getDbItem = require('./models/dbitem');
-
+//Module to add new item to database
+var storeDocument = require('./models/storeItemToDatabase');
 
 
 
@@ -122,7 +123,29 @@ app.get('/',function (req, res) {
    res.render('404')
 });
 
-
+//Send received json from client to server(to add new item)
+app.post('/databaseadd.json', function (req,res) {
+    var newitem = new storeDocument({
+        category: req.body.category ,
+        type: req.body.type ,
+        name: req.body.name ,
+        company: req.body.company ,
+        price: req.body.price ,
+        stockPrice: req.body.stockprice ,
+        item: req.body.item
+    });
+    newitem.save(function(err) {
+        if (err){
+            res.json({
+                'succcess':err
+            })
+        }else{
+            res.json({
+                'succcess':'Your item added'
+            })
+        }
+    });
+});
 
 //Console log string in shell
 app.listen(3000, function () {

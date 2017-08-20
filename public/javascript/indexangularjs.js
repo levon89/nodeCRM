@@ -1,5 +1,6 @@
     //Index table json controller(Index table child controller)
     app.controller('datagetcontroller', function ($scope,$http,$rootScope) {
+
         //Load every time when page load
         $scope.loadData = function () {
             //Ajax call to get server received json database
@@ -21,7 +22,6 @@
             });
         };
         //HIGLIGHT TABLE ROW WHEN CLICK  via ng-click help
-        $scope.rowClicked = null;
         $scope.highlight = function(items) {
             $scope.rowClicked = items;
             //Via  $rootscope make it bind with other controller , in form input
@@ -33,6 +33,7 @@
             $rootScope.itemStockprice=items.stockPrice;
             $rootScope.itemNumber=items.item;
         };
+        $scope.rowClicked = null;
     });
     //Index table Parent controller
     app.controller('tablecontroller', function ($scope) {
@@ -81,7 +82,30 @@
     });
     //Index Form Controller
     app.controller('indexFormCtrl', function ($scope,$http) {
-
+        $scope.addToDatabase = function () {
+            //Ajax call to add new item database
+            $http({
+                method: 'post',
+                url: '/databaseadd.json',
+                data: {
+                    'category': $scope.itemCategory,
+                    'type': $scope.itemType,
+                    'name': $scope.itemName,
+                    'company': $scope.itemCompany,
+                    'price': $scope.itemPrice,
+                    'stockprice': $scope.itemStockprice,
+                    'item': $scope.itemNumber
+                }
+            }).then(function recordedAnswer(response) {
+                //alert about succes or error
+                alert(response.data.succcess);
+                //reload page after user prompt
+                window.location.reload(true);
+            }, function errorRecordAnswer(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        }
     });
 
 
