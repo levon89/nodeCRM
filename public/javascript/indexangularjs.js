@@ -107,8 +107,10 @@
             });
         }
     });
+    //Find modal controller
+    app.controller('indexModalController', function ($scope,$http) {
 
-
+    });
 
 
 

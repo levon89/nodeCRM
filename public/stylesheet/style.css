@@ -325,3 +325,29 @@ input[type=number]::-webkit-outer-spin-button {
 .activerow{
     background-color: #6699cc;
 }
+
+#searchmodalstyle{
+    background-color:#666666;
+}
+.modal-title{
+    color: #ffffff;
+}
+.modal button , .modal button:hover{
+    background-color: #6699cc;
+    border-color: #6699cc;
+    color: #FFFFFF;
+}
+.modal-header {
+    border-bottom: 2px solid #FFFFFF;
+}
+.modal-footer {
+    border-top: 2px solid #FFFFFF;
+}
+.modal label{
+    color: #FFFFFF;
+    font-family: myfont;
+}
+.close{
+    color: #FFFFFF;
+    background-color: transparent !important;
+}

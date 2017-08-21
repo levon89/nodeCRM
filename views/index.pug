@@ -4,6 +4,9 @@ html(lang='en')
         meta(charset='UTF-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         script(src='/angular/angular.js')
+        script(src='/angular-sanitize/angular-sanitize.js')
+        script(src='/ui-select/dist/select.js')
+        link(rel='stylesheet', href='/ui-select/dist/select.css')
         link(rel='stylesheet', href='/stylesheet/bootstrap.min.css')
         script(src='/javascript/ui-bootstrap-tpls-2.5.0.min.js')
         script(src='/javascript/jquery.min.js')
@@ -35,9 +38,52 @@ html(lang='en')
         section
             .container-fluid
                 .row.text-center
+                    #searchmodal.modal.fade(role='dialog')
+                        .modal-dialog.modal-sm
+                            // Modal content
+                            .modal-content#searchmodalstyle
+                                .modal-header
+                                    button.close(type='button', data-dismiss='modal') ×
+                                    h4.modal-title Search
+                                .modal-body
+                                    form(ng-controller='indexModalController')
+                                        .form-group
+                                            label(for='category') Category
+                                            select#categoryoption.form-control
+                                                option
+                                                option 1
+                                                option 2
+                                                option 3
+                                                option 4
+                                        .form-group
+                                            label(for='type') Type
+                                            select#typeoptin.form-control
+                                                option
+                                                option 1
+                                                option 2
+                                                option 3
+                                                option 4
+                                        .form-group
+                                            label(for='name') Name
+                                            input#nameinput.form-control(type='text', placeholder='Light bulb')
+                                        .form-group
+                                            label(for='company') Company
+                                            input#companyinput.form-control(type='text', placeholder='Osram')
+                                        .form-group
+                                            label(for='price') Price
+                                            input#priceinput.form-control(type='text', placeholder='2500')
+                                        .form-group
+                                            label(for='stockprice') Stock price
+                                            input#stockpriceinput.form-control(type='text', placeholder='3000')
+                                        .form-group
+                                            label(for='item') Item
+                                            input#iteminput.form-control(type='text', placeholder='7')
+                                        button.btn.btn-default(type='submit') Find
+                                .modal-footer
+                                    button.btn.btn-default(type='button', data-dismiss='modal') Close
                     .col-sm-2
                     .col-sm-2
-                        a.clickeffect(href='#')
+                        a.clickeffect(href='#', data-toggle="modal" data-target="#searchmodal")
                             .itempropcont
                                 i.fa.fa.fa-search.fa-5x.fa-fw(aria-hidden='true')
                     .col-sm-1

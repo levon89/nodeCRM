@@ -1,5 +1,5 @@
 //Index page angular main module
-var app = angular.module('navigationBar', ['ui.bootstrap']);
+var app = angular.module('navigationBar', ['ui.bootstrap','ngSanitize', 'ui.select',]);
 
 
 
