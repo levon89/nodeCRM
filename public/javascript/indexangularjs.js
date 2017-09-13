@@ -107,9 +107,118 @@
             });
         }
     });
-    //Find modal controller
-    app.controller('indexModalController', function ($scope,$http) {
+    //Get json from database for find modal option
+    app.controller('modalFindItem', function ($scope,$http) {
+        var vm = this;
+        $scope.isVisibleUpdateButton= false;
+       $scope.getItemsForFindModal = function () {
+           $http({
+               method : 'post',
+               url : '/searchmodaljson.js',
+           }).then(function successJsonResponse(response) {
+               //Set response category into find option
+               vm.categoryArray = response.data;
+               //Set response type into find option
+               vm.typeArray = response.data;
+           }, function errorJsonResponse(response) {
+               console.log(response)
+           });
+       };
+       //Find what we need via modal
+        $scope.searchItem = function () {
+            //Animation scope near button show till response will not come
+            $scope.loading = true;
+            $http({
+                method: 'post',
+                url : '/searchitem.json',
+                data : {
+                    'searchcategory': $scope.ctrl.categoryArray.selectCat,
+                    'searchtype': $scope.ctrl.typeArray.selectType,
+                    'searchname': $scope.findName,
+                    'searchcompany': $scope.findCompany,
+                    'searchprice': $scope.findPrice,
+                    'searchstockprice': $scope.findStockPrice,
+                    'searchitem': $scope.findItem
+                }
+            }).then(function search(response) {
+                var searchCount = response.data;
+                //Aniamtion scope near button hide after response come
+                $scope.loading = false;
+                $scope.serverList = response.data;
+                $scope.totalFindedItems = response.data.length;
+                $scope.findedCurrentPage = 1;
+                $scope.maxItemsInPage = 5;
+                $scope.quanityForSearch = 10;
+                $scope.$watch('findedCurrentPage', function() {
+                    pagingData($scope.findedCurrentPage);
+                });
+                function pagingData(pages) {
+                    $scope.findedCurrentPage = pages;
+                    //Every time angular copy received data for slice , to make work paginate process well
+                    $scope.serverList = searchCount.slice((pages - 1) * $scope.quanityForSearch, pages * $scope.quanityForSearch);
+                }
+                //Higlight table row from search table
+                $scope.highlightFind = function(tableList) {
+                    var selectedRow = tableList;
+                    $scope.rowClicked = tableList;
+                    $scope.isVisibleUpdateButton = true;
+                    //Transfer value to editable form for update process
+                    $scope.editItem = function () {
+                        $scope.editId = selectedRow._id,
+                        $scope.editCategory = selectedRow.category,
+                        $scope.editType = selectedRow.type,
+                        $scope.editName = selectedRow.name,
+                        $scope.editCompany = selectedRow.company,
+                        $scope.editPrice = selectedRow.price,
+                        $scope.editStockPrice = selectedRow.stockPrice,
+                        $scope.changeItem = selectedRow.item
+                    };
+                    //Remove item by id
+                    $scope.removeItem = function () {
+                        $http({
+                            method: 'post',
+                            url : '/removeItem.json',
+                            data : {
+                                'removeIdItem': selectedRow._id
+                            }
+                        }).then(function succesDelete(response) {
+                            window.location.reload();
+                            alert(response.data);
+                        }, function errorUpdate(response) {
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                        });
+                    }
+                };
+            }, function searchError (response) {
 
+            })
+        };
+        //Update item
+        $scope.updateItem = function () {
+            $scope.updateProcess = true;
+            $http({
+                method: 'post',
+                url : '/updateitem.json',
+                data : {
+                    'updateIdItem': $scope.editId,
+                    'updateCategory': $scope.editCategory,
+                    'updateType': $scope.editType,
+                    'updateName': $scope.editName,
+                    'updateCompany': $scope.editCompany,
+                    'updatePrice': $scope.editPrice,
+                    'updateStockprice': $scope.editStockPrice,
+                    'updateItem': $scope.changeItem
+                }
+            }).then(function succesUpdate(response) {
+                alert(response.data);
+                $scope.updateProcess = false;
+                window.location.reload();
+            }, function errorUpdate(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        };
     });
 
 

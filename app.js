@@ -19,7 +19,7 @@ const TokenGenerator = require('uuid-token-generator');
 const tokgen = new TokenGenerator();
 //JSON WEbTOKEN MODULE
 var jwt = require('jsonwebtoken');
-//Database item module
+//Get and search database all item  or seaprate category (for option)module
 var getDbItem = require('./models/dbitem');
 //Module to add new item to database
 var storeDocument = require('./models/storeItemToDatabase');
@@ -145,6 +145,87 @@ app.post('/databaseadd.json', function (req,res) {
             })
         }
     });
+});
+
+//Get all items which has value category and type for find modal option
+app.post('/searchmodaljson.js',function (req,res) {
+    getDbItem.find( {},'category type' , function(err, getItemsOption){
+        if(err ||  !getItemsOption){
+            res.json(err);
+        } else {
+            res.json(getItemsOption);
+        }
+    });
+});
+
+//Search items and return to client
+app.post('/searchitem.json', function (req,res) {
+    getDbItem.find({
+        //Mongodb command to return all values , which will be match
+        $or:[
+            {
+              //Mongodb value to combine category and type option (if one of these values will be empty, server response will be empty array )
+              $and:[
+                {category: req.body.searchcategory},
+                {type: req.body.searchtype}
+              ]
+            },
+            {name: req.body.searchname},
+            {company: req.body.searchcompany},
+            {price: req.body.searchprice},
+            {stockPrice: req.body.searchstockprice},
+            {item: req.body.searchitem}
+        ]
+    }, function (err, findedItems) {
+        if(err ||  !findedItems){
+            res.json(err);
+        } else {
+            //Response json to client , if all will be success
+            res.json(findedItems);
+        }
+    });
+});
+
+//Update already excited item
+app.post('/updateitem.json', function (req,res) {
+    getDbItem.update({
+            _id: req.body.updateIdItem
+            },
+            { $set:
+                {
+                    category: req.body.updateCategory,
+                    type: req.body.updateType,
+                    name: req.body.updateName,
+                    company: req.body.updateCompany,
+                    price: req.body.updatePrice,
+                    stockPrice: req.body.updateStockprice,
+                    item: req.body.updateItem
+                }
+            }
+    ,function (err , updated) {
+            if(err ||  !updated){
+                res.json(err);
+            } else {
+                //Response json to client , if all will be success
+                res.json('updated');
+            }
+        })
+});
+
+//Remove item by id
+app.post('/removeItem.json', function (req,res) {
+    getDbItem.findOneAndRemove({
+        _id: req.body.removeIdItem
+        },
+        function (errDel , deleted) {
+            if(errDel ||  !deleted){
+                res.json(errDel);
+            } else {
+                //Response json to client , if all will be success
+                res.json('Deleted');
+            }
+        }
+    )
 });
 
 //Console log string in shell

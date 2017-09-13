@@ -4,20 +4,25 @@ html(lang='en')
         meta(charset='UTF-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         script(src='/angular/angular.js')
-        script(src='/angular-sanitize/angular-sanitize.js')
-        script(src='/ui-select/dist/select.js')
+        script(src='/angular-filter/dist/angular-filter.min.js')
+        script(src='/angular-sanitize/angular-sanitize.min.js')
+        script(src='/ui-select/dist/select.min.js')
         link(rel='stylesheet', href='/ui-select/dist/select.css')
         link(rel='stylesheet', href='/stylesheet/bootstrap.min.css')
         script(src='/javascript/ui-bootstrap-tpls-2.5.0.min.js')
         script(src='/javascript/jquery.min.js')
         script(src='/javascript/bootstrap.min.js')
         link(rel='stylesheet', href='/stylesheet/style.css')
-        link(rel='stylesheet', href='/include/font-awesome-4.7.0/css/font-awesome.min.css')
         script(src='/javascript/indexjs.js')
         script(src='/javascript/indexangularjs.js')
+        link(rel='stylesheet', href='/fonts/font-awesome-4.7.0/css/font-awesome.min.css')
         //if lt IE 9
                  script(src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js')
                  script(src='https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js')
+                 script.
+                     document.createElement('ui-select');
+                     document.createElement('ui-select-match');
+                     document.createElement('ui-select-choices');
         title Warehouse
     body(ng-app='navigationBar')
         header.navbar.navbar-inverse.navbar-fixed-left
@@ -38,66 +43,154 @@ html(lang='en')
         section
             .container-fluid
                 .row.text-center
-                    #searchmodal.modal.fade(role='dialog')
-                        .modal-dialog.modal-sm
-                            // Modal content
-                            .modal-content#searchmodalstyle
-                                .modal-header
-                                    button.close(type='button', data-dismiss='modal') ×
-                                    h4.modal-title Search
-                                .modal-body
-                                    form(ng-controller='indexModalController')
-                                        .form-group
-                                            label(for='category') Category
-                                            select#categoryoption.form-control
-                                                option
-                                                option 1
-                                                option 2
-                                                option 3
-                                                option 4
-                                        .form-group
-                                            label(for='type') Type
-                                            select#typeoptin.form-control
-                                                option
-                                                option 1
-                                                option 2
-                                                option 3
-                                                option 4
-                                        .form-group
-                                            label(for='name') Name
-                                            input#nameinput.form-control(type='text', placeholder='Light bulb')
-                                        .form-group
-                                            label(for='company') Company
-                                            input#companyinput.form-control(type='text', placeholder='Osram')
-                                        .form-group
-                                            label(for='price') Price
-                                            input#priceinput.form-control(type='text', placeholder='2500')
-                                        .form-group
-                                            label(for='stockprice') Stock price
-                                            input#stockpriceinput.form-control(type='text', placeholder='3000')
-                                        .form-group
-                                            label(for='item') Item
-                                            input#iteminput.form-control(type='text', placeholder='7')
-                                        button.btn.btn-default(type='submit') Find
-                                .modal-footer
-                                    button.btn.btn-default(type='button', data-dismiss='modal') Close
                     .col-sm-2
-                    .col-sm-2
-                        a.clickeffect(href='#', data-toggle="modal" data-target="#searchmodal")
+                    .col-sm-2(ng-controller='modalFindItem as ctrl')
+                        <!–– Modal form to search items ––>
+                        #searchmodal.modal.fade(role='dialog')
+                            .modal-dialog.modal-sm
+                                // Modal content
+                                .modal-content#searchmodalstyle
+                                    .modal-header
+                                        button.close(type='button', data-dismiss='modal') ×
+                                        h4.modal-title Search
+                                    .modal-body
+                                        form(name='findForm')
+                                            .form-group
+                                                label(for='category') Category
+                                                ui-select(ng-model='ctrl.categoryArray.selectCat',name='categoryopt',theme='bootstrap')
+                                                    ui-select-match(allow-clear='true',placeholder='Select category') {{$select.selected.category}}
+                                                    ui-select-choices(repeat='item.category as item in ctrl.categoryArray | filter: $select.search | unique:"category" ')
+                                                        div(ng-bind-html='item.category | highlight: $select.search')
+                                                span.a(ng-show='findForm.categoryopt.$touched') Need to choose type
+                                            .form-group
+                                                label(for='type') Type
+                                                ui-select(ng-model='ctrl.typeArray.selectType', name='typeopt')
+                                                    ui-select-match(allow-clear='true', placeholder='Select type',ng-model='typefind') {{$select.selected.type}}
+                                                    ui-select-choices(repeat='item.type as item in ctrl.typeArray | filter: $select.search | unique:"type" ')
+                                                        div(ng-bind-html='item.type | highlight: $select.search')
+                                                span(ng-show='findForm.typeopt.$touched') Need to choose category
+                                            .form-group
+                                                label(for='name') Name
+                                                input#nameinput.form-control(type='text', ng-model='findName', placeholder='Light bulb')
+                                            .form-group
+                                                label(for='company') Company
+                                                input#companyinput.form-control(type='text',ng-model='findCompany', placeholder='Osram')
+                                            .form-group
+                                                label(for='price') Price
+                                                input#priceinput.form-control(type='text', ng-model='findPrice', placeholder='2500')
+                                            .form-group
+                                                label(for='stockprice') Stock price
+                                                input#stockpriceinput.form-control(type='text', ng-model='findStockPrice', placeholder='3000')
+                                            .form-group
+                                                label(for='item') Item
+                                                input#iteminput.form-control(type='text', , ng-model='findItem', placeholder='7')
+                                            button.btn.btn-default(type='submit' , ng-click='searchItem()', ng-disabled='!(  findName || findCompany || findPrice || findStockPrice || findItem  || ctrl.categoryArray.selectCat || ctrl.typeArray.selectType )', data-toggle='modal' data-target='#findModal')
+                                                span.loading.glyphicon.glyphicon-refresh.glyphicon-refresh-animate(ng-show='loading')
+                                                |    Find
+                                    .modal-footer
+                                        button.btn.btn-default(type='button', data-dismiss='modal') Close
+                        <!–– Modal table for finded items ––>
+                        #findModal.modal.fade(role='dialog')
+                            .modal-dialog
+                                // Modal content
+                                .modal-content
+                                    .modal-header
+                                        button.close(type='button', data-dismiss='modal') ×
+                                        h4.modal-title Finded Items
+                                    .modal-body
+                                        p(ng-show='!serverList.length')
+                                            |Could not find , please search via combine category with type or via other search input
+                                        .table-responsive(ng-hide='!serverList.length')
+                                            table.table.table-hover
+                                                thead
+                                                    tr
+                                                        th(class='hideelement')
+                                                            |Id
+                                                        th
+                                                            | Category
+                                                        th
+                                                            | Type
+                                                        th
+                                                            | Name
+                                                        th
+                                                            | Company
+                                                        th
+                                                            | Price
+                                                        th
+                                                            | Stock Price
+                                                        th
+                                                            | Item
+                                                tbody
+                                                    tr(ng-repeat='tableList in serverList | limitTo:quanityForSearch ', ng-click='highlightFind(tableList)', ng-class='{activerow:rowClicked==tableList}')
+                                                        td(class='hideelement')
+                                                            |{{tableList._id}}
+                                                        td
+                                                            |{{tableList.category}}
+                                                        td
+                                                            |{{tableList.type}}
+                                                        td
+                                                            |{{tableList.name}}
+                                                        td
+                                                            |{{tableList.company}}
+                                                        td
+                                                            |{{tableList.price}}
+                                                        td
+                                                            |{{tableList.stockPrice}}
+                                                        td
+                                                            |{{tableList.item}}
+                                            ul.pagination-sm(uib-pagination='', total-items='totalFindedItems', ng-hide='!serverList.length', ng-model='findedCurrentPage', max-size='maxItemsInPage', boundary-link-numbers='true', rotate='false',items-per-page = 'quanityForSearch')
+                                    .modal-footer
+                                        button.btn.btn-default(ng-show='isVisibleUpdateButton', ng-click='removeItem()', type='button',data-toggle="modal") Delete
+                                        button.btn.btn-default(ng-show='isVisibleUpdateButton', ng-click='editItem()', type='button', data-target='#editmodal' , data-toggle="modal") Edit
+                                        button.btn.btn-default(type='button', data-dismiss='modal') Close
+                        <!–– Modal table to edit elements––>
+                        #editmodal.modal.fade(role='dialog')
+                            .modal-dialog.modal-sm
+                                // Modal content
+                                .modal-content#editmodalstyle
+                                    .modal-header
+                                        button.close(type='button', data-dismiss='modal') ×
+                                        h4.modal-title Edit
+                                    .modal-body
+                                        form(name='editForm')
+                                            .form-group(class='hideelement')
+                                                label(for='editId') Category
+                                                input#editcategoryid.form-control(type='text', ng-model='editId')
+                                            .form-group
+                                                label(for='category') Category
+                                                input#editcategoryinput.form-control(type='text', ng-model='editCategory')
+                                            .form-group
+                                                label(for='type') Type
+                                                input#edittypeinput.form-control(type='text', ng-model='editType')
+                                            .form-group
+                                                label(for='name') Name
+                                                input#editnameinput.form-control(type='text', ng-model='editName')
+                                            .form-group
+                                                label(for='company') Company
+                                                input#editcompanyinput.form-control(type='text',ng-model='editCompany')
+                                            .form-group
+                                                label(for='price') Price
+                                                input#editpriceinput.form-control(type='text', ng-model='editPrice')
+                                            .form-group
+                                                label(for='stockprice') Stock price
+                                                input#editstockpriceinput.form-control(type='text', ng-model='editStockPrice')
+                                            .form-group
+                                                label(for='item') Item
+                                                input#edititeminput.form-control(type='text', ng-model='changeItem')
+                                            button.btn.btn-default(type='submit' ,ng-click='updateItem()', ng-disabled='!(  editName || editCompany || editPrice || editStockPrice || editItem  || editCategory || editType )', data-toggle='modal')
+                                                span.loading.glyphicon.glyphicon-refresh.glyphicon-refresh-animate(ng-show='updateProcess')
+                                                |    Update
+                                    .modal-footer
+                                        button.btn.btn-default(type='button', data-dismiss='modal') Close
+                        a.clickeffect(href='#', data-toggle="modal" data-target="#searchmodal", ng-click='getItemsForFindModal()')
                             .itempropcont
                                 i.fa.fa.fa-search.fa-5x.fa-fw(aria-hidden='true')
                     .col-sm-1
                     .col-sm-2
-                        a.clickeffect(href='#')
-                            .itempropcont
-                                i.fa.fa-pencil.fa-5x.fa-fw(aria-hidden='true')
                     .col-sm-1
                     .col-sm-2
-                        a.clickeffect(href='#')
-                            .itempropcont
-                                i.fa.fa-trash-o.fa-fw.fa-5x(aria-hidden='true')
                     .col-sm-2
-            .container-fluid
+            .con.container-fluid
                 .row
                     .col-sm-2
                     #itemadd.col-sm-8

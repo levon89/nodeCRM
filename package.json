@@ -15,6 +15,7 @@
   "license": "SEE LICENSE IN <index>",
   "dependencies": {
     "angular": "^1.6.4",
+    "angular-filter": "^0.5.16",
     "angular-sanitize": "^1.6.4",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
