@@ -56,6 +56,25 @@
     });
     //Navbar logic
     app.controller('navigateControl' , function ($scope, $http) {
+
+        //Navigate to sell section
+        $scope.sell = function () {
+            //Take client stored token
+            var clientToken = window.localStorage.getItem('token');
+            //ajax call to route to sell
+            $http({
+                method: 'get',
+                url: '/sell',
+                data: {
+                    clientHanshake: clientToken
+                }
+            }).then(function sellRoute(data) {
+                window.location = data.data.redirect;
+            }, function sellRouteError(data) {
+
+            });
+        };
+
         //logout process from navbar
         $scope.logout = function () {
             //ajax call to route
@@ -79,6 +98,7 @@
                 alert('something wrong is going with ajax call')
             });
         }
+
     });
     //Index Form Controller
     app.controller('indexFormCtrl', function ($scope,$http) {

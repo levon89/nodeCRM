@@ -17,8 +17,6 @@ app.use(cookieParser());
 //Token gernator
 const TokenGenerator = require('uuid-token-generator');
 const tokgen = new TokenGenerator();
-//JSON WEbTOKEN MODULE
-var jwt = require('jsonwebtoken');
 //Get and search database all item  or seaprate category (for option)module
 var getDbItem = require('./models/dbitem');
 //Module to add new item to database
@@ -45,8 +43,17 @@ var getMainDatabase = express.Router()
         });
     });
 
+//Get verified token to check if user is logged
+var checkUser = express.Router()
+    .post('/verify.json', function (req,res,next) {
+         global.serverRealToken = req.body.tokenStr;
+    });
 
-
+//Middleware to route to sell if token will be true
+var userHasChecked = express.Router()
+    .get(function(req, res,next) {
+        res.render('sell');
+    });
 
 //Open login first page
 app.get('/login',function (req, res) {
@@ -73,14 +80,9 @@ app.post('/form', function(req, res){
                message: 'Wrong username and/or password'
            });
         } else {
-            //Generate token
-            var newToken = jwt.sign({
-                username: tokgen
-            }, 'Itwouldbedevastatingifanyonelearnedthatyourcharacteristhesiblingofanevilnematode.', {
-                    expiresIn: '1h'
-                }
-            );
 
+            //Generate token
+            var newToken = tokgen.generate();
             //send json to client to check if user logged
             res.json({
                 success: true,
@@ -89,7 +91,7 @@ app.post('/form', function(req, res){
                 }
             });
             //middle to main  page
-            app.use(userLogedmainPage, getMainDatabase);
+            app.use(userLogedmainPage, getMainDatabase,checkUser);
             //error page redirect in every slash
             app.use(function (req, res, next) {
                 res.status(404);
@@ -228,6 +230,19 @@ app.post('/removeItem.json', function (req,res) {
     )
 });
 
+app.get('/sell', function (req,res) {
+    res.render('sell');
+    //Get client own token
+    var clientToken = req.body.clientHanshake;
+    //Check if real token is valid to client token
+    if( clientToken = serverRealToken ){
+        res.send({
+            redirect:'/sell'
+        })
+    }else{
+
+    }
+});
 //Console log string in shell
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!')
