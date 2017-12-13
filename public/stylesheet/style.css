@@ -206,6 +206,7 @@ body{
     font-weight: 600;
 }
 #itemlist .table-responsive{
+    text-align: center;
     margin-top: 2em;
     border-radius: 10px;
     background-color:  #666666;
@@ -286,9 +287,6 @@ body{
     max-width: 50%;
 }
 
-#sell #decline{
-margin-left: 2px;
-}
 #sell i{
     font-size: 1.4em;
 }
@@ -297,10 +295,10 @@ margin-left: 2px;
 
 }
 #sell td a:hover{
-    color: #009AFF;
+    color: #F65058;
 }
 #sell td a:active {
-    color: #349634;
+    color: #F65058;
 
 }
 .warncolor{
@@ -409,4 +407,87 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .hideelement{
     display:none;
+}
+#itemlist thead>tr>th{
+    text-align: center;
+}
+#sell .table-responsive input{
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 2px solid #FFFFFF;
+    border-radius: 0;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -o-box-shadow: none !important;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: 500;
+}
+#sell .table-responsive{
+    text-align: center;
+}
+#errortext{
+    color: #FFFFFF;
+    font-weight: 400;
+    text-align: center;
+}
+#sell table th{
+    text-align: center;
+}
+.popover-content {
+    color: #666666;
+}
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+}
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+}
+#total h4{
+    color: #ffffff !important;
+    font-family: myfont;
+    font-weight: 400 !important;
+}
+#total pre{
+    color: #ffffff;
+    background-color: #666666;
+    border: none;
+}
+#buttonblock>.btn{
+    margin-right: 6px !important;
+}
+#total .table-responsive {
+    margin-top: 2em;
+    border-radius: 10px;
+    background-color: #666666;
+    box-shadow: 0px 0px 12.96px 3.04px #7C7C7C;
+    -o-box-shadow: 0px 0px 12.96px 3.04px #7C7C7C;
+    -moz-box-shadow: 0px 0px 12.96px 3.04px #7C7C7C;
+    -webkit-box-shadow: 0px 0px 12.96px 3.04px #7C7C7C;
+}
+#errortextsale{
+    color: #FFFFFF;
+    font-weight: 400;
+    text-align: center;
+}
+#totaltable thead{
+    color: #FFFFFF;
+    font-family: myfont;
+}
+#totaltable tbody {
+    color: #FFFFFF;
+    font-weight: 600;
+    text-align: center;
+}
+#totaltable>thead>tr>th{
+    text-align: center;
+}
+.resultstyle{
+    background-color: #5bc0de;
 }

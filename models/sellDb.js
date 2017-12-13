@@ -5,16 +5,18 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://admin:12345@127.0.0.1:27017');
 
 //FindWarehouse model
-let warehouse = mongoose.model('warehouse',{
+let solditems = mongoose.model('solditems',{
     category: String ,
     type: String ,
     name: String ,
     company: String ,
     price: Number ,
     stockPrice: Number ,
-    item: Number
+    soldPrice: Number,
+    soldItem: Number,
+    date: Date
 });
 
 
 //make module export
-module.exports = warehouse ;
+module.exports = solditems ;

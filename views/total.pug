@@ -1,0 +1,147 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        script(src='/angular/angular.js')
+        script(src='/angular-filter/dist/angular-filter.min.js')
+        script(src='/angular-sanitize/angular-sanitize.min.js')
+        script(src='/ui-select/dist/select.min.js')
+        link(rel='stylesheet', href='/ui-select/dist/select.css')
+        link(rel='stylesheet', href='/stylesheet/bootstrap.min.css')
+        script(src='/javascript/ui-bootstrap-tpls-2.5.0.min.js')
+        script(src='/javascript/jquery.min.js')
+        script(src='/javascript/bootstrap.min.js')
+        link(rel='stylesheet', href='/stylesheet/style.css')
+        script(src='/javascript/total.js')
+        script(src='/javascript/totalcontroller.js')
+        link(rel='stylesheet', href='/fonts/font-awesome-4.7.0/css/font-awesome.min.css')
+        //if lt IE 9
+                 script(src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js')
+                 script(src='https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js')
+                 script.
+                     document.createElement('ui-select');
+                     document.createElement('ui-select-match');
+                     document.createElement('ui-select-choices');
+        title Total
+    body(ng-app='totalApp')
+        header.navbar.navbar-inverse.navbar-fixed-left
+            #profpicture
+                a.navbar-brand(href='#')
+                    img(src='/images/man-156584_960_720.png')
+            ul.nav.navbar-nav(ng-controller='totalNAviController')
+                li
+                    a(href='#',ng-click='totalWarehouseClick()') Warehouse
+                li
+                    a(href='#',ng-click='totalSellClick()') Sell
+                li
+                    a(href='#') Total
+                li
+                    a(href='#',ng-click='totalLogOut()') Logout
+        section#total
+            .container-fluid(ng-controller='datePickCtrl')
+                .row
+                    .col-sm-2
+                    .col-sm-8.text-center
+                        pre
+                         |  Your selected date is: {{dt | date:'fullDate'}}
+                        h4 Choose date to see your sale
+                        div#buttonblock(style='display:inline-block; min-height:290px;')
+                            .well.well-sm(uib-datepicker='', ng-model='dt', ng-model-options="{ timezone:'UTC' }",
+                            datepicker-options='options')
+                            button.btn.btn-sm.btn-info(type='button', ng-click='today()') Today
+                            button.btn.btn-sm.btn-info(type='button', ng-click='ShowDateSell()') Show
+                        hr
+
+                    .col-sm-2
+                .row
+                    .col-sm-2
+                    .col-sm-8
+
+                        p(id='errortextsale',ng-show='emptyTotal')
+                            | You have not sell nothing
+                        .table-responsive.text-center
+                            table.table.table-hover(id='totaltable')
+                                thead
+                                    tr
+                                        th
+                                            | Category
+                                        th
+                                            | Type
+                                        th
+                                            | Name
+                                        th
+                                            | Company
+                                        th
+                                            | Price
+                                        th
+                                            | Stock price
+                                        th
+                                            | Item
+                                        th
+                                            | Sold item
+                                        th
+                                            | Last price
+                                tbody
+                                    tr(ng-hide='true')
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+
+                                    tr(ng-repeat='solditem in dbSoldItems')
+                                        td
+                                            | {{solditem.category}}
+                                        td
+                                            | {{solditem.type}}
+                                        td
+                                            | {{solditem.name}}
+                                        td
+                                            | {{solditem.company}}
+                                        td
+                                            | {{solditem.price}}
+                                        td
+                                            | {{solditem.stockPrice}}
+                                        td
+                                            | {{solditem.item}}
+                                        td
+                                            | {{solditem.soldItem}}
+                                        td
+                                            | {{solditem.soldPrice}}
+
+                                    tr.resultstyle(ng-show='amountrow')
+                                        td
+                                            |Total
+                                        td
+                                            |
+                                        td
+                                            |
+                                        td
+                                            |
+                                        td
+                                            | {{tableTotalPrice}}
+                                        td
+                                            | {{tableTotalStockPrice}}
+                                        td
+                                            |
+                                        td
+                                            |
+                                        td
+                                            | {{tableTotalSellPrice}}
+
+                            ul.pagination-sm(uib-pagination='', total-items='totalItems', ng-hide='!dbSoldItems.length', ng-model='totalcurrPageSell', max-size='maxItemsInTotal', boundary-link-numbers='true', rotate='false',items-per-page = 'quanityTotal')
+                    .col-sm-2

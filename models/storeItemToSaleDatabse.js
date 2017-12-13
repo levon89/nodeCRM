@@ -5,24 +5,26 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://admin:12345@127.0.0.1:27017');
 
 // grab the things we need
-var dataSchema = mongoose.Schema;
+var sellDataSchema = mongoose.Schema;
 
 // create a schema and show where documents
-var documentSchema = new dataSchema ({
+var sellDocSchema = new sellDataSchema ({
     category: String ,
     type: String ,
     name: String ,
     company: String ,
     price: Number ,
     stockPrice: Number ,
-    item: Number
+    soldPrice: Number,
+    soldItem: Number,
+    date : Number
 },{
-    collection:'warehouses'
+    collection:'solditems'
 });
 
 // the schema is useless so far
 // we need to create a model using it
-var storeditem = mongoose.model('dataDocument', documentSchema);
+var sellStoredItem = mongoose.model('dataSellDocument', sellDocSchema);
 
 // make this available to our users in our Node applications
-module.exports = storeditem;
+module.exports = sellStoredItem;

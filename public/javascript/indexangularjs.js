@@ -63,14 +63,36 @@
             var clientToken = window.localStorage.getItem('token');
             //ajax call to route to sell
             $http({
-                method: 'get',
-                url: '/sell',
+                method: 'post',
+                url: '/sell.json',
                 data: {
                     clientHanshake: clientToken
                 }
             }).then(function sellRoute(data) {
-                window.location = data.data.redirect;
+                if(data.data.succcess = true){
+                    window.location.href = '/sell'
+                }
             }, function sellRouteError(data) {
+
+            });
+        };
+
+        //NAvigate to total section
+        $scope.total = function () {
+            //Take client token
+            var clientTokenTotal = window.localStorage.getItem('token');
+            //ajax call to  call route
+            $http({
+                method: 'post',
+                url: '/total.json',
+                data: {
+                    clientHanshaketotal: clientTokenTotal
+                }
+            }).then(function warehouseRoute(data) {
+                if(data.data.succcess = true){
+                    window.location.href = '/total'
+                }
+            }, function warehouseRouteError(data) {
 
             });
         };

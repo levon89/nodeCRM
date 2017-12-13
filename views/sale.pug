@@ -1,0 +1,181 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        script(src='/angular/angular.js')
+        script(src='/angular-filter/dist/angular-filter.min.js')
+        script(src='/angular-sanitize/angular-sanitize.min.js')
+        script(src='/ui-select/dist/select.min.js')
+        link(rel='stylesheet', href='/ui-select/dist/select.css')
+        link(rel='stylesheet', href='/stylesheet/bootstrap.min.css')
+        script(src='/javascript/ui-bootstrap-tpls-2.5.0.min.js')
+        script(src='/javascript/jquery.min.js')
+        script(src='/javascript/bootstrap.min.js')
+        link(rel='stylesheet', href='/stylesheet/style.css')
+        script(src='/javascript/saleApp.js')
+        script(src='/javascript/saleControllers.js')
+        link(rel='stylesheet', href='/fonts/font-awesome-4.7.0/css/font-awesome.min.css')
+        //if lt IE 9
+                 script(src='https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js')
+                 script(src='https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js')
+                 script.
+                     document.createElement('ui-select');
+                     document.createElement('ui-select-match');
+                     document.createElement('ui-select-choices');
+        title Sale
+    body(ng-app='sellPageBar')
+        header.navbar.navbar-inverse.navbar-fixed-left
+            #profpicture
+                a.navbar-brand(href='#')
+                    img(src='/images/man-156584_960_720.png')
+            ul.nav.navbar-nav(ng-controller='SellNavigateControl')
+                li
+                    a(href='#',ng-click='warehouseClick()') Warehouse
+                li
+                    a(href='#') Sell
+                li
+                    a(href='#',ng-click='totalClick()') Total
+                li
+                    a(href='#' , ng-click='saleLogOut()') Logout
+        section#sell(ng-controller='sellController as cont', ng-init='loadSellDropdown()')
+            .container-fluid
+                .row
+                    .col-sm-2
+                    .col-sm-8
+                        form(name='sellForm')
+                            .container-fluid.text-center
+                                .row
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='catDrop')
+                                                |Category
+                                            ui-select(ng-model='cont.recieveCategory.sellSelectCat', name='catDrop',theme='bootstrap')
+                                                ui-select-match(allow-clear='true', placeholder='Category') {{$select.selected.category}}
+                                                ui-select-choices(repeat='item.category as item in cont.recieveCategory | filter: $select.search | unique:"category" ')
+                                                    div(ng-bind-html='item.category | highlight: $select.search')
+                                            span.a(ng-show='sellForm.catDrop.$touched') Need to choose type
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='typeDrop')
+                                                |Type
+                                            ui-select(ng-model='cont.recieveType.sellSelectType', name='typeDrop')
+                                                ui-select-match(allow-clear='true',placeholder='Type') {{$select.selected.type}}
+                                                ui-select-choices(repeat='item.type as item in cont.recieveType | filter: $select.search | unique:"type" ')
+                                                    div(ng-bind-html='item.type | highlight: $select.search')
+                                            span.a(ng-show='sellForm.typeDrop.$touched') Need to choose category
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Name')
+                                                | Name
+                                            input#Name.form-control(type='text', ng-model='sellName')
+                                .row
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Company')
+                                                | Company
+                                            input#Company.form-control(type='text', ng-model='sellComapny')
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='Price')
+                                                | Price
+                                            input#Price.form-control(type='number', ng-model='sellPrice')
+                                    .col-sm-4
+                                        .form-group
+                                            label(for='stockprice')
+                                                | Stock Price
+                                            input#stockprice.form-control(type='number', ng-model='sellStockPrice')
+                            .container-fluid.text-center
+                                .row
+                                    .col-sm-4
+                                    .col-sm-4
+                                        button.btn.btn-default(ng-click='findItemForsell()')
+                                            | Find
+                                    .col-sm-4
+                    .col-sm-2
+            .container-fluid
+                .row
+                    .col-sm-2
+                    .col-sm-8
+                        p(id='errortext',ng-show='emptySearch')
+                            | Could not find , please search via combine category with type or via other search input
+                        .table-responsive
+                            table.table.table-hover
+                                thead
+                                    tr
+                                        th
+                                            | Category
+                                        th
+                                            | Type
+                                        th
+                                            | Name
+                                        th
+                                            | Company
+                                        th
+                                            | Price
+                                        th
+                                            | Stock price
+                                        th
+                                            | Item
+                                        th
+                                            | Sold item
+                                        th
+                                            | Last price
+                                        th.text-center
+                                            | Accept
+                                tbody
+                                    tr(ng-hide='true')
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            | lorem
+                                        td
+                                            input(type='number')
+                                        td
+                                            input(type='number')
+                                        td
+                                            .text-center
+                                                a(href='#')
+                                                    span#accept.pull-left
+                                                        i.fa.fa-check-circle-o.fa-fw(aria-hidden='true')
+                                                a(href='#')
+                                                    span#decline.pull-right
+                                                        i.fa.fa-times-circle-o.fa-fw(aria-hidden='true')
+                                    tr(ng-repeat='val in selltable | limitTo: quanitySell', ng-dblclick='highlightSell(val)', ng-class='{activerow:rowClicked==val}' )
+                                        td(class='hideelement')
+                                            | {{val._id}}
+                                        td
+                                            | {{val.category}}
+                                        td
+                                            | {{val.type}}
+                                        td
+                                            | {{val.name}}
+                                        td
+                                            | {{val.company}}
+                                        td
+                                            | {{val.price}}
+                                        td
+                                            | {{val.stockPrice}}
+                                        td
+                                            | {{val.item}}
+                                        td
+                                            input(type='number', uib-popover="Sold items required" ,popover-trigger="'mouseenter'", ng-model='val.soldItemLastCount')
+                                        td
+                                            input(type='number', ng-model='val.soldItemLastPrice')
+                                        td
+                                            .text-center
+                                                a(ng-click='sellItem()')
+                                                    span#accept.pull-left
+                                                        i.fa.fa-check-circle-o.fa-fw(aria-hidden='true')
+                            ul.pagination-sm(uib-pagination='', total-items='sellSectionTableItems', ng-hide='!selltable.length', ng-model='currPageSell', max-size='maxItemsInSell', boundary-link-numbers='true', rotate='false',items-per-page = 'quanitySell')
+                    .col-sm-2
